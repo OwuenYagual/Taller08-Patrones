@@ -4,33 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationPromotionService implements Observable{
-    private List<Observer> observers;
-    public String promotionMessage;
+    private List<Observer> customerSubcribers;
+    private String lastedPromotion = "";
 
     public NotificationPromotionService() {
-        this.observers = new ArrayList<>();
+        this.customerSubcribers = new ArrayList<>();
     }
     
     
     @Override
     public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(promotionMessage);
+        for (Observer observer : customerSubcribers) {
+            observer.update(this.lastedPromotion);
         }
     }
 
     @Override
     public void addObserver(Observer o) {
-        observers.add(o);
+        customerSubcribers.add(o);
     }
 
     @Override
     public void removeObserver(Observer o) {
-        observers.remove(o);
+        customerSubcribers.remove(o);
     }
     
-    public void setPromotionMessage(String promotionMessage) {
-        this.promotionMessage = promotionMessage;
+    public void addPromotion(String message) {
+        this.lastedPromotion = message;
         notifyObservers();
     }
     
